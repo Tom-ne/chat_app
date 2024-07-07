@@ -1,21 +1,24 @@
-#pragma once
+#ifndef SERVER_H
+#define SERVER_H
+
 #include <WinSock2.h>
 #include <Windows.h>
 #include <iostream>
-#include <map>
-#include <mutex>
 #include <vector>
+#include <mutex>
+#include <thread>
 
 #pragma comment(lib, "Ws2_32.lib") // Link with Ws2_32.lib
 
 class Server
 {
-#define BUFFER_SIZE 1024
 public:
     Server(int port, int iface);
     ~Server();
 
     void run();
+    void closeServer();
+
 private:
     void bindSocket();
     void listenForConnections();
@@ -25,6 +28,11 @@ private:
     const int port;
     const int iface;
 
-    std::map<SOCKET, std::mutex> serverSocket;
+    SOCKET serverSocket;
     std::vector<SOCKET> connectedClients;
+    std::mutex loggerMutex;
+    std::thread listenThread;
+    bool isRunning;
 };
+
+#endif // SERVER_H
