@@ -4,16 +4,17 @@
 #include <string>
 #include <fstream>
 
-class Logger
-{
+class Logger {
 public:
-    static void create();
-    static void close();
+    static void initialize();
+    static void finalize();
+    static void log(const std::string& data);
 private:
-    static std::string getFileName();
+    static const std::string getLogFileName();
+    static const int getCurrentDateTime();
 
     static std::ofstream logFile;
     static const std::string headers[];
 };
 
-#endif
+#endif // LOGGER_H
