@@ -1,8 +1,10 @@
 #pragma once
 #include <WinSock2.h>
 #include <Windows.h>
-#include <vector>
 #include <iostream>
+#include <map>
+#include <mutex>
+#include <vector>
 
 #pragma comment(lib, "Ws2_32.lib") // Link with Ws2_32.lib
 
@@ -23,6 +25,6 @@ private:
     const int port;
     const int iface;
 
-    SOCKET serverSocket;
+    std::map<SOCKET, std::mutex> serverSocket;
     std::vector<SOCKET> connectedClients;
 };

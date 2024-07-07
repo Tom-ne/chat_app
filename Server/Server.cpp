@@ -56,6 +56,7 @@ void Server::listenForConnections()
 
 void Server::handleUser(SOCKET clientSocket)
 {
+
 }
 
 void Server::notifyUsers()
